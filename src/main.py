@@ -23,6 +23,7 @@ parser = MockParser()
 async def get_data():
     raw_data = service.get()
     result_data = parser.prepare_data(raw_data)
-    await broker.publish(result_data, queue=output, exchange=exch)
+    for data in result_data:
+        await broker.publish(data, queue=output, exchange=exch)
 
 
